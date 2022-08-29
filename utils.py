@@ -32,11 +32,11 @@ def generate_gradient_rgbs(num_buckets):
         rgb_codes.append((red, green, blue))
     return rgb_codes
 
-def get_new_color(v, v_max):
+def get_new_color_array(v_max):
     colors = [(1, 0, 0), (1, 0.5, 0), (1, 1, 0), (0.4, 0.8, 0), (0, 0.6, 0)]
     cm = LinearSegmentedColormap.from_list("Custom", colors, N=v_max+1)
     color_list = [rgb2hex(cm(i)) for i in range(cm.N)]
-    return color_list[v]
+    return color_list
     # mat = np.indices((10,10))[1]      # uncomment to view gradient
     # plt.imshow(mat, cmap=cm)
     # plt.show()

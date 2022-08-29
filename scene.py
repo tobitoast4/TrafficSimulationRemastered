@@ -16,6 +16,7 @@ class Scene():
         # self.cells_random = utils.get_random_array(self.amount_cells)
         self.cells_random = utils.equal(self.amount_cells, self.amount_cars)
         self.v_max = 3
+        self.color_array = utils.get_new_color_array(self.v_max)
         if self.amount_cars > self.amount_cells:
             raise Exception("There can't be more cars then cells")
 
@@ -85,7 +86,7 @@ class Scene():
             x, y = self.cell_positions[new_cell]
             car.grCar.setPos(x, y)
             car.cell = new_cell
-            car.grCar.updateBrush(self.v_max)
+            car.grCar.updateBrush(self.color_array)
             new_cells[new_cell] = car
         self.cells = new_cells
 

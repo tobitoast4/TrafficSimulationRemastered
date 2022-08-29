@@ -47,4 +47,4 @@ class IThread(QThread): # see https://stackoverflow.com/a/44329475/14522363
     def run(self):
         while True:
             self.move.emit()
-            time.sleep(0.1)
+            time.sleep(0.0001)

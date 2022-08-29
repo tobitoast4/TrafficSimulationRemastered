@@ -17,9 +17,9 @@ class IGraphicsCar(QGraphicsItem):
 
         self.initUi()
 
-    def updateBrush(self, v_max):
+    def updateBrush(self, color_array):
         velocity = self.car.velocity
-        color = utils.get_new_color(velocity, v_max)
+        color = color_array[velocity]
         self.brush = QBrush(QColor(color))
         self.update()
 
