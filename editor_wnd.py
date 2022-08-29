@@ -4,7 +4,8 @@ from PyQt5.QtGui import *
 
 from scene import Scene
 from graphics_view import IGraphicsView
-from car import Car
+
+import time
 
 class NodeEditorWnd(QWidget):
     def __init__(self, parent=None):
@@ -12,7 +13,7 @@ class NodeEditorWnd(QWidget):
         self.initUI()
 
     def initUI(self):
-        self.setGeometry(200, 200, 800, 600)
+        self.setGeometry(200, 200, 700, 700)
         self.layout = QVBoxLayout()
         # self.layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
@@ -20,28 +21,30 @@ class NodeEditorWnd(QWidget):
         # create graphics scene
         self.scene = Scene()
         self.grScene = self.scene.grScene
-        car = Car(self.scene, 0, 0)
-
 
         # create graphics view
         self.view = IGraphicsView(self.grScene, self)
         self.view.setScene(self.grScene)
 
+        self.th = IThread()
+        self.th.move.connect(self.moveCars)
+        self.th.start()
 
         self.layout.addWidget(self.view)
-        self.setWindowTitle("WindowTitle")
+        self.setWindowTitle("Stau Simulation")
         self.show()
 
-        self.addTest()
+    def moveCars(self):
+        self.scene.moveCars()
 
 
+class IThread(QThread): # see https://stackoverflow.com/a/44329475/14522363
+    move = pyqtSignal()
 
+    def __init__(self):
+        super().__init__()
 
-    def addTest(self):
-        brush = QBrush(Qt.red)
-        outline = QPen(Qt.black)
-        outline.setWidth(1)
-
-        rect = self.grScene.addEllipse(-100, -100, 20, 20, outline, brush)
-        rect.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable)
-        rect.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable)
+    def run(self):
+        while True:
+            self.move.emit()
+            time.sleep(0.1)

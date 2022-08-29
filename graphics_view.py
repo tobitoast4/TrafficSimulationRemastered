@@ -2,6 +2,8 @@ from PyQt5.QtWidgets import QGraphicsView
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
+from graphics_car import  IGraphicsCar
+
 
 class IGraphicsView(QGraphicsView):
     def __init__(self, scene, parent=None):
@@ -28,6 +30,7 @@ class IGraphicsView(QGraphicsView):
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.setTransformationAnchor(QGraphicsView.AnchorUnderMouse)
+        self.setDragMode(QGraphicsView.RubberBandDrag)
 
 
     def mousePressEvent(self, event):
@@ -64,10 +67,13 @@ class IGraphicsView(QGraphicsView):
         fakeEvent = QMouseEvent(event.type(), event.localPos(), event.screenPos(),
                                 Qt.LeftButton, event.button() | Qt.LeftButton, event.modifiers())
         super().mouseReleaseEvent(fakeEvent)
-        self.setDragMode(QGraphicsView.NoDrag)
+        self.setDragMode(QGraphicsView.RubberBandDrag)
 
 
     def leftMouseButtonPress(self, event):
+        item = self.getItemAtClick(event)
+        if isinstance(item, IGraphicsCar):
+            item.car.printOut()
         return super().mousePressEvent(event)
 
     def rightMouseButtonPress(self, event):
@@ -99,5 +105,7 @@ class IGraphicsView(QGraphicsView):
             # set scene scale
             self.scale(zoomFactor, zoomFactor)
 
-
-
+    def getItemAtClick(self, event):
+        pos = event.pos()
+        obj = self.itemAt(pos)
+        return obj
