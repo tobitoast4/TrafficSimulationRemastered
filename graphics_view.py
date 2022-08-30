@@ -14,10 +14,10 @@ class IGraphicsView(QGraphicsView):
 
         self.zoomInFactor = 1.25
         self.zoomClamp = True
-        self.zoom = 1
+        self.zoom = 6
         self.zoomStep = 1
-        self.zoomRange = [1, 12]
-        self.scale(0.3, 0.3)
+        self.zoomRange = [1, 15]
+        self.scale(0.35, 0.35)
 
     def initUI(self):
         self.setRenderHint(QPainter.RenderHint.Antialiasing)
