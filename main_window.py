@@ -52,7 +52,6 @@ class MainWindow(QMainWindow):
 
     def velocity_changed(self):  # Inside the class
         value = self.slider_velocity_changed.value()
-        print(value)
         self.main_widget.main_bg_thread.time_wait = 0.000008*(100000-value)
 
     def update_timer(self):

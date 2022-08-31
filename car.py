@@ -1,15 +1,15 @@
 from graphics_car import IGraphicsCar
 
 class Car():
-    def __init__(self, scene, cell):
+    def __init__(self, scene, cell, lane):
         self.scene = scene
         self.grCar = IGraphicsCar(self)
 
         self.velocity = 0
         self.cell = cell
+        self.lane = lane
 
-
-        self.scene.addCar(self, cell)
+        self.scene.addCar(self, cell, lane)
         self.scene.grScene.addItem(self.grCar)
 
 
@@ -18,8 +18,7 @@ class Car():
 
     def printOut(self):
         return f"Car in cell: {self.cell}\n" \
-               f"   Velocity: {self.velocity}\n" \
-               f"   Cell pos: x: {self.scene.cell_positions[self.cell][0]}\n" \
-               f"             y: {self.scene.cell_positions[self.cell][1]}"
+               f"       Lane: {self.lane}\n" \
+               f"   Velocity: {self.velocity}\n"
 
 

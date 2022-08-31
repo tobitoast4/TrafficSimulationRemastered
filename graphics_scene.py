@@ -17,7 +17,7 @@ class IGraphicsScene(QGraphicsScene):
         self.radius = radius
         self.radius_gap = radius_gap
         self.amount_cells = amount_cells
-        self.amount_lanes = 1
+        self.amount_lanes = 3
 
     def setGrScene(self, width, height):
         self.setSceneRect(-width//2, -height//2, width, height)
