@@ -73,7 +73,7 @@ class IGraphicsView(QGraphicsView):
     def leftMouseButtonPress(self, event):
         item = self.getItemAtClick(event)
         if isinstance(item, IGraphicsCar):
-            item.car.printOut()
+            print(item.car.printOut())
         return super().mousePressEvent(event)
 
     def rightMouseButtonPress(self, event):

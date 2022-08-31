@@ -17,7 +17,8 @@ class NodeEditorWnd(QWidget):
 
         self.setStyleSheet("border-width: 0px; border-style: solid")
         # create graphics scene
-        self.scene = Scene()
+
+        self.scene = Scene(parent)
         self.grScene = self.scene.grScene
 
         # create graphics view
@@ -31,20 +32,19 @@ class NodeEditorWnd(QWidget):
         self.layout.addWidget(self.view)
         # self.setWindowTitle("Stau Simulation")
 
-    def moveCars(self):
-        self.scene.moveCars()
+    def moveCars(self, paused):
+        self.scene.moveCars(paused)
 
 
 class IThread(QThread): # see https://stackoverflow.com/a/44329475/14522363
-    move = pyqtSignal()
+    move = pyqtSignal(bool)
 
     def __init__(self, start_velocity):
         self.time_wait = start_velocity
-        self.run = True
+        self.paused = True
         super().__init__()
 
     def run(self):
         while True:
-            if self.run:
-                self.move.emit()
+            self.move.emit(self.paused)
             time.sleep(self.time_wait)

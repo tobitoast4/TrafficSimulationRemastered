@@ -5,9 +5,10 @@ import random
 
 
 class Scene():
-    def __init__(self):
-        self.scene_width = 2000
-        self.scene_height = 2000
+    def __init__(self, parent=None):
+        self.parent = parent
+        self.scene_width = 5000
+        self.scene_height = 5000
 
         self.radius = 900
         self.radius_gap = 25
@@ -52,6 +53,7 @@ class Scene():
         x, y = self.cell_positions[cell]
         car.grCar.setPos(x, y)
         self.cells[cell] = car
+        car.cell = cell
 
     def removeCar(self, car):
         self.cars.remove(car)
@@ -60,43 +62,55 @@ class Scene():
         cell_where_car_will_be_added = self.cells_random[len(self.cars)]
         Car(self, cell_where_car_will_be_added)
 
-    def moveCars(self):
+    def moveCars(self, paused):
         new_cells = [None for c in range(self.amount_cells)]
+        amount_selected = 0
+        velocity_sum = 0
+        first_cell = -1
         for car in self.cars:
-            if car.velocity < self.v_max:               # rule 1
-                car.velocity += 1
-            current_cell = car.cell
+            if car.grCar.isSelected():
+                amount_selected += 1
+                velocity_sum += car.velocity
+                if car.cell > first_cell:
+                    first_cell = car.cell
 
-            for c in range(car.velocity):               # rule 2
-                next_cell = current_cell + c + 1
-                if next_cell >= self.amount_cells:
-                    next_cell -= self.amount_cells
-                if self.cells[next_cell] is not None:
-                    car.velocity = c
-                    break
+            if not paused:
+                if car.velocity < self.v_max:               # rule 1
+                    car.velocity += 1
+                current_cell = car.cell
 
-            rand_int = random.randrange(1, 100)         # rule 3
-            #(0 -> inclusive, 99 -> exlusive)
-            if rand_int < 30:
-                car.velocity -= 1
+                for c in range(car.velocity):               # rule 2
+                    next_cell = current_cell + c + 1
+                    if next_cell >= self.amount_cells:
+                        next_cell -= self.amount_cells
+                    if self.cells[next_cell] is not None:
+                        car.velocity = c
+                        break
 
-            new_cell = car.cell + car.velocity          # rule 4
-            if new_cell >= self.amount_cells:
-                new_cell -= self.amount_cells
-            x, y = self.cell_positions[new_cell]
-            car.grCar.setPos(x, y)
-            car.cell = new_cell
-            car.grCar.updateBrush(self.color_array)
-            new_cells[new_cell] = car
-        self.cells = new_cells
+                rand_int = random.randrange(1, 100)         # rule 3
+                #(0 -> inclusive, 99 -> exlusive)
+                if rand_int < 30 and car.velocity > 0:
+                    car.velocity -= 1
+
+                new_cell = car.cell + car.velocity          # rule 4
+                if new_cell >= self.amount_cells:
+                    new_cell -= self.amount_cells
+                x, y = self.cell_positions[new_cell]
+                car.grCar.setPos(x, y)
+                car.cell = new_cell
+                car.grCar.updateBrush(self.color_array)
+                new_cells[new_cell] = car
+        if not paused:
+            self.cells = new_cells
+        self.parent.update_selected(amount_selected, velocity_sum, first_cell)
 
     def replacedArr(self, arr):
         new_arr = arr.copy()
         for c in range(len(new_arr)):
             if new_arr[c] is None:
-                new_arr[c] = 0
+                new_arr[c] = "x"
             if isinstance(new_arr[c], Car):
-                new_arr[c] = 1
+                new_arr[c] = new_arr[c].velocity
         return new_arr
 
 

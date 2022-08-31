@@ -8,7 +8,6 @@ class IGraphicsScene(QGraphicsScene):
         super().__init__(None)
         self.scene = scene
         # settings
-        self.grid_size = 20
         self.color_background = QColor("#FFFFFF")
         self.color_light = QColor("#444444")
         self.pen_light = QPen(self.color_light)
@@ -18,6 +17,7 @@ class IGraphicsScene(QGraphicsScene):
         self.radius = radius
         self.radius_gap = radius_gap
         self.amount_cells = amount_cells
+        self.amount_lanes = 1
 
     def setGrScene(self, width, height):
         self.setSceneRect(-width//2, -height//2, width, height)
@@ -26,7 +26,7 @@ class IGraphicsScene(QGraphicsScene):
         super().drawBackground(painter, rect)
 
         radius1 = self.radius
-        radius2 = self.radius + self.radius_gap
+        radius2 = self.radius + self.radius_gap*self.amount_lanes
         distance = 2*math.pi / self.amount_cells
         lines = []
         for k in range(self.amount_cells):
@@ -40,39 +40,11 @@ class IGraphicsScene(QGraphicsScene):
         painter.setPen(self.pen_light)
         painter.drawLines(*lines)
 
-        # inner circle
-        path_inner = QPainterPath()
-        path_inner.addEllipse(0 - self.radius, 0 - self.radius, self.radius*2-1, self.radius*2-1)
-        painter.setPen(self.pen_light)
-        painter.setBrush(Qt.NoBrush)
-        painter.drawPath(path_inner.simplified())
+        for i in range(self.amount_lanes + 1):
+            path_outer = QPainterPath()
+            path_outer.addEllipse(0 - self.radius - self.radius_gap*i, 0 - self.radius - self.radius_gap*i,
+                                  (self.radius + self.radius_gap*i) * 2 + 1, (self.radius + self.radius_gap*i) * 2 + 1)
+            painter.setPen(self.pen_light)
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(path_outer.simplified())
 
-        #outer circle
-        path_outer = QPainterPath()
-        path_outer.addEllipse(0 - self.radius - self.radius_gap, 0 - self.radius - self.radius_gap,
-                              (self.radius + self.radius_gap) * 2 + 1, (self.radius + self.radius_gap) * 2 + 1)
-        painter.setPen(self.pen_light)
-        painter.setBrush(Qt.NoBrush)
-        painter.drawPath(path_outer.simplified())
-
-    # def drawBackground(self, painter, rect): # OLD
-    #     super().drawBackground(painter, rect)
-    #
-    #     left = int(math.floor(rect.left()))
-    #     right = int(math.ceil(rect.right()))
-    #     top = int(math.floor(rect.top()))
-    #     bottom = int(math.ceil(rect.bottom()))
-    #
-    #     first_left = left - (left % self.grid_size)
-    #     first_top = top - (top % self.grid_size)
-    #
-    #     lines_light = []
-    #     for x in range(first_left, right, self.grid_size):
-    #         lines_light.append(QLine(x, top, x, bottom))
-    #
-    #     for y in range(first_top, bottom, self.grid_size):
-    #         lines_light.append(QLine(left, y, right, y))
-    #
-    #
-    #     painter.setPen(self.pen_light)
-    #     painter.drawLines(*lines_light)
