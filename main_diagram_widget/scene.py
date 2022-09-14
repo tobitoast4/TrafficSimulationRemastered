@@ -4,7 +4,7 @@ from TrafficSimulationRemastered.main_diagram_widget.graphics_scene import *
 class Scene():
     def __init__(self, parent=None):
         self.parent = parent
-        self.scene_width = 1000
+        self.scene_width = 3000
         self.scene_height = 5000
 
         self.initUi()

@@ -9,12 +9,6 @@ class IGraphicsView(QGraphicsView):
         self.grScene = scene
         self.initUI()
         self.setScene(self.grScene)
-
-        self.zoomInFactor = 1.25
-        self.zoomClamp = True
-        self.zoom = 6
-        self.zoomStep = 1
-        self.zoomRange = [1, 15]
         self.scale(0.35, 0.35)
 
     def initUI(self):
@@ -25,10 +19,11 @@ class IGraphicsView(QGraphicsView):
 
         self.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
 
-        self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        self.setTransformationAnchor(QGraphicsView.AnchorUnderMouse)
-        self.setDragMode(QGraphicsView.RubberBandDrag)
+        # self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        # self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        # self.setTransformationAnchor(QGraphicsView.AnchorUnderMouse)
+        # self.setDragMode(QGraphicsView.RubberBandDrag)
+
 
 
     def mousePressEvent(self, event):

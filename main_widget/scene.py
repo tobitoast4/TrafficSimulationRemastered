@@ -12,7 +12,7 @@ class Scene():
 
         self.radius = 900
         self.radius_gap = 25
-        self.amount_cells = 240
+        self.amount_cells = 340
         self.amount_cars = 80
         # self.cells_random = utils.get_random_array(self.amount_cells)
         self.cells_random = utils.equal(self.amount_cells, self.amount_cars)
@@ -102,6 +102,7 @@ class Scene():
                 new_cells[new_cell] = car
         if not paused:
             self.cells = new_cells
+            self.parent.main_diagram_widget.drawLine(self.cells)
         self.parent.update_selected(amount_selected, velocity_sum, first_cell)
 
     def replacedArr(self, arr):

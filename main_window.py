@@ -13,19 +13,29 @@ class MainWindow(QMainWindow):
         super().__init__()  # Call the inherited classes __init__ method
         uic.loadUi('main_window.ui', self)  # Load the .ui file
 
+        self.diagram_widget = self.findChild(QWidget, "main_diagram_widget")
+        self.main_diagram_widget = MainDiagramWidget(4, parent=self)
+        self.frame_main_widget_layout = QVBoxLayout()
+        self.frame_main_widget_layout.setContentsMargins(0, 0, 0, 0)
+        self.frame_main_widget_layout.addWidget(self.main_diagram_widget)
+        self.diagram_widget.setLayout(self.frame_main_widget_layout)
+        self.right_frame = self.findChild(QWidget, "frame_5")
+        self.right_frame.setMaximumWidth(592)
+        self.splitter_right = self.findChild(QWidget, "splitter_right")
+        self.splitter_right.setSizes([1, 2])
+
+
         self.widget = self.findChild(QWidget, "widget")
-        self.main_widget = NodeEditorWnd(0.000008*(100000-85000), parent=self)
+        self.main_widget = NodeEditorWnd(0.000008*(100000-85000), self.main_diagram_widget, parent=self)
         self.frame_main_widget_layout = QVBoxLayout()
         self.frame_main_widget_layout.setContentsMargins(0, 0, 0, 0)
         self.frame_main_widget_layout.addWidget(self.main_widget)
         self.widget.setLayout(self.frame_main_widget_layout)
 
-        self.widget = self.findChild(QWidget, "main_diagram_widget")
-        self.main_diagram_widget = MainDiagramWidget(4, parent=self)
-        self.frame_main_widget_layout = QVBoxLayout()
-        self.frame_main_widget_layout.setContentsMargins(0, 0, 0, 0)
-        self.frame_main_widget_layout.addWidget(self.main_diagram_widget)
-        self.widget.setLayout(self.frame_main_widget_layout)
+        self.pushButton = self.findChild(QAction, "actionShow_Diagramm_1")
+        self.pushButton.triggered.connect(self.show_main_diagram)
+
+
 
         self.slider_velocity_changed = self.findChild(QSlider, "velocitySlider")
         self.slider_velocity_changed.valueChanged.connect(self.velocity_changed)
@@ -45,6 +55,11 @@ class MainWindow(QMainWindow):
         self.label_amount = self.findChild(QLabel, "label_amount")
         self.label_velocity = self.findChild(QLabel, "label_velocity")
         self.label_cell = self.findChild(QLabel, "label_cell")
+
+
+    def show_main_diagram(self):
+        self.splitter_right.setSizes([1, 2])
+
 
     def pause(self):
         if self.main_widget.main_bg_thread.paused:

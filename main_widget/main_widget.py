@@ -8,8 +8,11 @@ from TrafficSimulationRemastered.main_widget.graphics_view import IGraphicsView
 import time
 
 class NodeEditorWnd(QWidget):
-    def __init__(self, start_velocity, parent=None):
+    def __init__(self, start_velocity, main_diagram_widget, parent=None):
         super().__init__(parent)
+
+        # other widgets of the window
+        self.main_diagram_widget = main_diagram_widget
 
         self.layout = QVBoxLayout()
         self.layout.setContentsMargins(0, 0, 0, 0)
