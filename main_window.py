@@ -5,7 +5,8 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 import sys
 
-from editor_wnd import *
+from main_widget.main_widget import *
+from main_diagram_widget.main_diagram_widget import *
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -17,6 +18,13 @@ class MainWindow(QMainWindow):
         self.frame_main_widget_layout = QVBoxLayout()
         self.frame_main_widget_layout.setContentsMargins(0, 0, 0, 0)
         self.frame_main_widget_layout.addWidget(self.main_widget)
+        self.widget.setLayout(self.frame_main_widget_layout)
+
+        self.widget = self.findChild(QWidget, "main_diagram_widget")
+        self.main_diagram_widget = MainDiagramWidget(4, parent=self)
+        self.frame_main_widget_layout = QVBoxLayout()
+        self.frame_main_widget_layout.setContentsMargins(0, 0, 0, 0)
+        self.frame_main_widget_layout.addWidget(self.main_diagram_widget)
         self.widget.setLayout(self.frame_main_widget_layout)
 
         self.slider_velocity_changed = self.findChild(QSlider, "velocitySlider")
@@ -52,7 +60,6 @@ class MainWindow(QMainWindow):
 
     def velocity_changed(self):  # Inside the class
         value = self.slider_velocity_changed.value()
-        print(value)
         self.main_widget.main_bg_thread.time_wait = 0.000008*(100000-value)
 
     def update_timer(self):
@@ -69,9 +76,6 @@ class MainWindow(QMainWindow):
         else:
             self.label_velocity.setText("-")
             self.label_cell.setText("-")
-
-
-
 
 
 class TimerThread(QThread): # see https://stackoverflow.com/a/44329475/14522363

@@ -1,4 +1,4 @@
-from graphics_car import IGraphicsCar
+from TrafficSimulationRemastered.main_widget.graphics_car import IGraphicsCar
 
 class Car():
     def __init__(self, scene, cell):

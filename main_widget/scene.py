@@ -1,6 +1,6 @@
-from graphics_scene import *
-from car import Car
-import utils
+from TrafficSimulationRemastered.main_widget.graphics_scene import *
+from TrafficSimulationRemastered.main_widget.car import Car
+from TrafficSimulationRemastered import utils
 import random
 
 

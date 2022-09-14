@@ -95,12 +95,23 @@
             <layout class="QVBoxLayout" name="verticalLayout_3">
              <item>
               <widget class="QFrame" name="frame_6">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="frameShape">
                 <enum>QFrame::StyledPanel</enum>
                </property>
                <property name="frameShadow">
                 <enum>QFrame::Raised</enum>
                </property>
+               <layout class="QVBoxLayout" name="verticalLayout_2">
+                <item>
+                 <widget class="QWidget" name="main_diagram_widget" native="true"/>
+                </item>
+               </layout>
               </widget>
              </item>
              <item>

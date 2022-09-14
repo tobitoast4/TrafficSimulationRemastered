@@ -2,8 +2,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
-from scene import Scene
-from graphics_view import IGraphicsView
+from TrafficSimulationRemastered.main_widget.scene import Scene
+from TrafficSimulationRemastered.main_widget.graphics_view import IGraphicsView
 
 import time
 
