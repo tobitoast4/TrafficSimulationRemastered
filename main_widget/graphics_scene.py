@@ -11,7 +11,7 @@ class IGraphicsScene(QGraphicsScene):
         self.color_background = QColor("#FFFFFF")
         self.color_light = QColor("#444444")
         self.pen_light = QPen(self.color_light)
-        self.pen_light.setWidth(0.1)
+        # self.pen_light.setWidth(0.1)
         self.setBackgroundBrush(self.color_background)
         # circle settings
         self.radius = radius

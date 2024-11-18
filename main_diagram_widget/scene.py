@@ -1,4 +1,4 @@
-from TrafficSimulationRemastered.main_diagram_widget.graphics_scene import *
+from main_diagram_widget.graphics_scene import *
 
 
 class Scene():

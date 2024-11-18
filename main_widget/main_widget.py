@@ -2,8 +2,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
-from TrafficSimulationRemastered.main_widget.scene import Scene
-from TrafficSimulationRemastered.main_widget.graphics_view import IGraphicsView
+from main_widget.scene import Scene
+from main_widget.graphics_view import IGraphicsView
 
 import time
 
@@ -39,7 +39,7 @@ class NodeEditorWnd(QWidget):
         self.scene.moveCars(paused)
 
 
-class IThread(QThread): # see https://stackoverflow.com/a/44329475/14522363
+class IThread(QThread):  # see https://stackoverflow.com/a/44329475/14522363
     move = pyqtSignal(bool)
 
     def __init__(self, start_velocity):

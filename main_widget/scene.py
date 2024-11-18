@@ -1,6 +1,6 @@
-from TrafficSimulationRemastered.main_widget.graphics_scene import *
-from TrafficSimulationRemastered.main_widget.car import Car
-from TrafficSimulationRemastered import utils
+from main_widget.graphics_scene import *
+from main_widget.car import Car
+import utils
 import random
 
 
@@ -105,6 +105,7 @@ class Scene():
             self.parent.main_diagram_widget.drawLine(self.cells)
         self.parent.update_selected(amount_selected, velocity_sum, first_cell)
 
+
     def replacedArr(self, arr):
         new_arr = arr.copy()
         for c in range(len(new_arr)):
@@ -113,5 +114,3 @@ class Scene():
             if isinstance(new_arr[c], Car):
                 new_arr[c] = new_arr[c].velocity
         return new_arr
-
-

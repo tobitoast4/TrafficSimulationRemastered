@@ -11,3 +11,7 @@ class IGraphicsScene(QGraphicsScene):
     def setGrScene(self, width, height):
         self.setSceneRect(0, 0, width, height)
 
+    def setHeight(self, height):
+        self.setSceneRect(0, 0, self.width(), height)
+
+

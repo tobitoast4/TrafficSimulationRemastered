@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QGraphicsView
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-from TrafficSimulationRemastered.main_widget.graphics_car import  IGraphicsCar
+from main_widget.graphics_car import  IGraphicsCar
 
 
 class IGraphicsView(QGraphicsView):

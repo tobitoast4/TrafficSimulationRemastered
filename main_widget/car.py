@@ -1,4 +1,5 @@
-from TrafficSimulationRemastered.main_widget.graphics_car import IGraphicsCar
+from main_widget.graphics_car import IGraphicsCar
+
 
 class Car():
     def __init__(self, scene, cell):
@@ -16,10 +17,9 @@ class Car():
     def move(self, x, y, cell):
         pass
 
+
     def printOut(self):
         return f"Car in cell: {self.cell}\n" \
                f"   Velocity: {self.velocity}\n" \
                f"   Cell pos: x: {self.scene.cell_positions[self.cell][0]}\n" \
                f"             y: {self.scene.cell_positions[self.cell][1]}"
-
-
